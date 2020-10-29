@@ -15,6 +15,19 @@ router.get("/", async (req, res, next) => {
   }
 });
 
+router.get("/:imageId", async (req, res, next) => {
+  try {
+    const id = req.params.imageId;
+    const image = await Image.findByPk(id);
+    if (!image) {
+      res.status(404).send("image not found");
+    }
+    res.send(image);
+  } catch {
+    next(e);
+  }
+});
+
 router.post("/", async (req, res, next) => {
   try {
     const { title, url } = req.body;
