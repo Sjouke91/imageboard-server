@@ -7,8 +7,9 @@ const jsonParser = express.json();
 PORT = 4000;
 
 app.use(jsonParser);
-app.use(auth);
 
+//routers
+app.use("/login", auth);
 app.use("/user", userRouter);
 app.use("/image/auth/messy", imageRouter);
 

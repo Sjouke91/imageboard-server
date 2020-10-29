@@ -2,10 +2,11 @@ const { Router } = require("express");
 const { toJWT, toData } = require("../auth/jwt");
 const User = require("../models").user;
 const bcrypt = require("bcrypt");
+const authMiddleware = require("../auth/middleware");
 
 const router = new Router();
 
-router.post("/login", async (req, res) => {
+router.post("/", async (req, res) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
@@ -35,10 +36,13 @@ router.post("/login", async (req, res) => {
         message: "Password was incorrect",
       });
     }
-    res.send({
-      jwt: toJWT({ userId: 1 }),
-    });
   }
+});
+
+router.get("/test-auth", authMiddleware, (req, res) => {
+  res.send({
+    message: `Thanks for visiting the secret endpoint ${req.user.fullName}.`,
+  });
 });
 
 module.exports = router;
