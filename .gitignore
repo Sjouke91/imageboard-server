@@ -1,1 +1,4 @@
 node_modules/
+
+
+http :4000/image/auth/messy Authorization:"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTYwMzk2OTE1NywiZXhwIjoxNjAzOTc2MzU3fQ.qa-pdYPEliEhZz_lfM5aknRbRLiOBUywdklVMZAh5Tw"
