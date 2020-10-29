@@ -17,8 +17,8 @@ const { toJWT, toData } = require("../auth/jwt");
 // });
 
 // router.get("/", (req, res, next) => {
-//   const limit = Math.min(req.query.limit || 25, 500);
-//   const offset = req.query.offset || 0;
+// const limit = Math.min(req.query.limit || 25, 500);
+// const offset = req.query.offset || 0;
 
 //   Image.findAndCountAll({ limit, offset })
 //     .then((result) => res.send({ images: result.rows, total: result.count }))
@@ -28,13 +28,15 @@ const { toJWT, toData } = require("../auth/jwt");
 router.get("/", async (req, res, next) => {
   const auth =
     req.headers.authorization && req.headers.authorization.split(" ");
+  const limit = Math.min(req.query.limit || 25, 500);
+  const offset = req.query.offset || 0;
   if (auth && auth[0] === "Bearer" && auth[1]) {
     try {
       const data = toData(auth[1]);
     } catch (e) {
       res.status(400).send("Invalid JWT token");
     }
-    const allImages = await Image.findAll();
+    const allImages = await Image.findAndCountAll({ limit, offset });
     res.json(allImages);
   } else {
     res.status(401).send({

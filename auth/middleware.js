@@ -5,6 +5,8 @@ async function auth(req, res, next) {
   // 1. check for authorization header and "split" it.
   const auth =
     req.headers.authorization && req.headers.authorization.split(" ");
+
+  console.log("this is auth speaking", auth);
   // 2. if authorization header is there, auth type is Bearer and we have something at auth[1] we proceed to check the token.
   //    If not, we return a 401 status and the message: 'Please supply some valid credentials
   //    Remember to try/catch the call to "toData()".
